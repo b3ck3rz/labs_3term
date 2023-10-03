@@ -1,8 +1,5 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <math.h>
 
 
 void multiples_numbers(int* multiples_array, int number, int count) {
@@ -25,6 +22,16 @@ int is_prime(int number) {
     return 0;
 }
 
+void power(int n, int m, long long powers[][m]) {
+    for (int i = 1; i <= n; i++) {
+        long long res = i;
+        for (int j = 0; j < m; j++) {
+            powers[i-1][j] = res;
+            res *= i;
+        }    
+    }
+}
+
 int sum_of_numbers(int number) {
     int result = 0;
     
@@ -36,6 +43,9 @@ int sum_of_numbers(int number) {
 }
 
 int factorial(int number) {
+    if (number == 0) {
+        return 0;
+    }
     int result = 1;
     for(int i = 1; i <= number; i++) {
         result *= i;
@@ -62,12 +72,11 @@ int main(int argc, char *argv[]) {
             printf("Multiples not found");
             return 0;
         }
-        int* result = (int*)malloc(sizeof(int)*count);
+        int result[count];
         multiples_numbers(result, number, count);
         for (int i = 0; i < count; i++) {
             printf("%d ", result[i]);
         } 
-        free(result);
 
         return 0;
     }
@@ -86,12 +95,13 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
+
     if (argv[1][1] == 'e') {
-        for (int i = 1; i <= 10; i++) {
-            long long res = i;
-            for (int j = 0; j < number; j++) {
-                printf("%d ", res);
-                res *= i;
+        long long result[10][number];
+        power(10, number, result);
+        for(int i = 0; i < 10; i++) {
+            for(int j = 0; j < number; j++) {
+                printf("%lld ", result[i][j]);
             }
             printf("\n");
         }
