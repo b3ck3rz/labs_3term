@@ -57,7 +57,7 @@ int factorial(int number) {
 int main(int argc, char *argv[]) {
 
     if (argc < 3) {
-        printf("Not enough values to unpack (expected 3, got 2)");
+        printf("Not enough values to unpack\n");
         return 0;
     }
 
@@ -65,11 +65,11 @@ int main(int argc, char *argv[]) {
 
     if (argv[1][1] == 'h') {
         if (number == 0) {
-            printf("Wrong value");
+            printf("Wrong value\n");
         }
         int count = 100 / number;
         if (count == 0) {
-            printf("Multiples not found");
+            printf("Multiples not found\n");
             return 0;
         }
         int result[count];
@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (argv[1][1] == 'p') {
-        (is_prime(number) == 0) ? printf("The number is prime") : printf("The number is composite");
+        (is_prime(number) == 0) ? printf("The number is prime\n") : printf("The number is composite\n");
 
         return 0;
     }
@@ -112,16 +112,15 @@ int main(int argc, char *argv[]) {
     if (argv[1][1] == 'a') {
         int sum = sum_of_numbers(number);
 
-        printf("The sum of numbers is %d", sum);
+        printf("The sum of numbers is %d\n", sum);
 
         return 0;
     }
 
     if(argv[1][1] == 'f') {
-        printf("The factorial of %d is %d", number, factorial(number));
+        printf("The factorial of %d is %d\n", number, factorial(number));
 
         return 0;
     }
 
-    return 0;
 }
