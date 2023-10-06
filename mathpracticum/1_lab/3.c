@@ -56,7 +56,7 @@ void quadratic_equation(double eps, double a, double b, double c, double* solve)
     }
 }
 
-void bubbleSort(double *num, int size) {
+void bubble_sort(double *num, int size) {
   for (int i = 0; i < size - 1; i++)
   {
     for (int j = (size - 1); j > i; j--) {
@@ -67,6 +67,38 @@ void bubbleSort(double *num, int size) {
       }
     }
   }
+}
+
+void comparing_numbers(double* arr, int n, double eps) {
+    for (int i = 0; i < n-1; i++) {
+        if (fabs(arr[i] - arr[i+1]) < eps) {
+            arr[i+1] = arr[i];
+        }
+    }
+}
+
+int is_multiple(int a, int b) {
+    if (a % b == 0) {
+        return 1;
+    }
+    return 0;
+}
+
+int is_triangle(double* arr) {
+    int count = 0;
+    for (int i = 0; i < 3; i++) {
+        for (int j = i + 1; j < 3; j++) {
+            for (int k = j + 1; k < 3; k++) {
+                if (arr[i] + arr[j] > arr[k] && arr[j] + arr[k]s > arr[i] && arr[k] + arr[i] > arr[j]) {
+                    count++;
+                }
+            }
+        }
+    }
+    if (count > 0) {
+        return 1;
+    }
+    return 0;
 }
 
 int main(int argc, char *argv[]) {
@@ -84,22 +116,69 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < 3; i++) {
             arr[i] = atof(argv[i+3]);
         }
-        bubbleSort(arr, 3);
+        bubble_sort(arr, 3);
+        comparing_numbers(arr, 3, eps);
         double combinations[6][3];
         double solve[2];
         int count = get_combinations(3, combinations, arr);
         for (int i = 0; i < count; i++) {
             printf("a = %f, b = %f, c = %f\n", combinations[i][0], combinations[i][1], combinations[i][2]);
             quadratic_equation(0.1, combinations[i][0], combinations[i][1], combinations[i][2], solve);
-                double x1 = solve[0];
-                double x2 = solve[1];
-                if (x1 == 0 && x2 == 0) {
-                    printf("There are no roots\n");
-                    continue;
-                }
-                printf("Roots of the equation: x1 = %f, x2 = %f\n", x1, x2);
+            double x1 = solve[0];
+            double x2 = solve[1];
+            if (x1 == 0 && x2 == 0) {
+                printf("There are no roots\n");
+                continue;
+            }
+            printf("Roots of the equation: x1 = %f, x2 = %f\n", x1, x2);
+        }
+        return 0;
+    }
+
+
+    if (argv[1][1] == 'm') {
+        if (argc < 4) {
+            printf("Not enough values to unpack\n");
+            return 0;
+        }
+        if (argc > 4) {
+            printf("Too many values\n");
+            return 0;
+        }        
+        int a = atoi(argv[2]);
+        int b = atoi(argv[3]);
+        if (is_multiple(a, b)) {
+            printf("Number is multiple\n");
+        }
+        else {
+            printf("Number is not multiple\n");
         }
 
+        return 0;
+    }
+
+    if(argv[1][1] == 't') {
+        if (argc < 6) {
+            printf("Not enough values to unpack\n");
+            return 0;
+        }
+        if (argc > 6) {
+            printf("Too many values\n");
+            return 0;
+        }
+        double eps = atof(argv[2]);
+        double arr[3];
+        for (int i = 0; i < 3; i++) {
+            arr[i] = atof(argv[i+3]);
+        }
+        bubble_sort(arr, 3);
+        comparing_numbers(arr, 3, eps);
+        if (is_triangle(arr)) {
+            printf("It's triangle\n");
+        }    
+        else {
+            printf("Is not triangle\n");
+        }
         return 0;
     }
 }
