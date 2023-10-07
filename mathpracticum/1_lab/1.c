@@ -101,6 +101,10 @@ int main(int argc, char *argv[]) {
 
 
     if (argv[1][1] == 'e') {
+        if (number > 10) {
+            printf("Value is to high\n");
+            return 0;
+        }
         long long result[10][number];
         power(10, number, result);
         for(int i = 0; i < 10; i++) {
