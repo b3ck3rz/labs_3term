@@ -2,6 +2,24 @@
 #include <stdlib.h>
 #include <math.h>
 
+int check_epsilon_validity(char* eps) {
+    int flag = 1;
+    char* double_symbols = "1234567890.";
+    for (int i = 0; i < strlen(eps); i++) {
+        if (strchr(double_symbols, eps[i]) == 0) {
+            flag = 0;
+            break;
+        }
+    }
+    if (flag == 0) {
+        return 0;
+    }
+    if (atof(eps) < 0) {
+        return 0;
+    }
+    return 1;
+}
+
 void swap(double* arr, int i, int j) {
   double temp = arr[i];
   arr[i] = arr[j];
@@ -111,6 +129,10 @@ int main(int argc, char *argv[]) {
             printf("Too many values\n");
             return 0;
         }
+        if (check_epsilon_validity(argv[1]) == 0) {
+            printf("Incorrect epsilon value\n");
+            return 0;
+        };
         double eps = atof(argv[2]);
         double arr[3];
         for (int i = 0; i < 3; i++) {

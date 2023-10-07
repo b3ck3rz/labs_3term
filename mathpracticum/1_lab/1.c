@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 void multiples_numbers(int* multiples_array, int number, int count) {
     multiples_array[0] = number;
     for (int i = 1; i < count; i++) {
