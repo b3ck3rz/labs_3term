@@ -59,15 +59,20 @@ int main(int argc, char *argv[]) {
         printf("Not enough values to unpack\n");
         return 0;
     }
+    if (argc > 3) {
+        printf("Too many values\n");
+        return 0;
+    }
 
     int number = atoi(argv[2]);
 
     if (argv[1][1] == 'h') {
-        if (number == 0) {
+        if (number <= 0) {
             printf("Wrong value\n");
+            return 0;
         }
         int count = 100 / number;
-        if (count == 0) {
+        if (count == 2) {
             printf("Multiples not found\n");
             return 0;
         }
