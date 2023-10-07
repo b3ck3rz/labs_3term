@@ -12,7 +12,6 @@ int check_epsilon_validity(char* eps) {
             return 0;
         }
     }
-
     if (atof(eps) < 0) {
         return 0;
     }
@@ -27,19 +26,15 @@ void swap(double* arr, int i, int j) {
 
 int next_set(double* arr, int n) {
     int j = n - 2;
-    while (j != -1 && arr[j] >= arr[j + 1]) {
-        j--;}
+    while (j != -1 && arr[j] >= arr[j + 1]) j--;
     if (j == -1) {
         return 0;
     }
-    int k = n - 1;
-    while (arr[j] >= arr[k]) {
-        k--;}
-    swap(arr, j, k);
+    int i = n - 1;
+    while (arr[j] >= arr[i]) i--;
+    swap(arr, j, i);
     int l = j + 1, r = n - 1;
-    while (l<r) {
-        swap(arr, l++, r--);
-    }
+    while (l < r) swap(arr, l++, r--);
     return 1;
 }
 
@@ -99,17 +94,7 @@ int is_multiple(int a, int b) {
 }
 
 int is_triangle(double* arr) {
-    int count = 0;
-    for (int i = 0; i < 3; i++) {
-        for (int j = i + 1; j < 3; j++) {
-            for (int k = j + 1; k < 3; k++) {
-                if (arr[i] + arr[j] > arr[k] && arr[j] + arr[k] > arr[i] && arr[k] + arr[i] > arr[j]) {
-                    count++;
-                }
-            }
-        }
-    }
-    if (count > 0) {
+    if (arr[0] + arr[1] > arr[2] && arr[1] + arr[2] > arr[0] && arr[2] + arr[0] > arr[1]) {
         return 1;
     }
     return 0;
@@ -146,13 +131,14 @@ int main(int argc, char *argv[]) {
             double x2 = solve[1];
             if (x1 == 0 && x2 == 0) {
                 printf("There are no roots\n");
-                continue;
             }
-            printf("Roots of the equation: x1 = %f, x2 = %f\n", x1, x2);
+            else {
+                printf("Roots of the equation: x1 = %f, x2 = %f\n", x1, x2);                
+            }
+
         }
         return 0;
     }
-
 
     if (argv[1][1] == 'm') {
         if (argc < 4) {
