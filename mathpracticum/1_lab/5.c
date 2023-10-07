@@ -7,12 +7,8 @@ int check_epsilon_validity(char* eps) {
     char* double_symbols = "1234567890.";
     for (int i = 0; i < strlen(eps); i++) {
         if (strchr(double_symbols, eps[i]) == 0) {
-            flag = 0;
-            break;
+            return 0;
         }
-    }
-    if (flag == 0) {
-        return 0;
     }
     if (atof(eps) < 0) {
         return 0;
@@ -95,4 +91,6 @@ int main(int argc, char* argv[]) {
     printf("The result of the calculation of b.: %f\n", res_b);
     printf("The result of the calculation of c.: %f\n", res_c);
     printf("The result of the calculation of d.: %f\n", res_d);
+
+    return 0;
 }

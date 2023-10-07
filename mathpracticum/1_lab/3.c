@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
 int check_epsilon_validity(char* eps) {
     int flag = 1;
@@ -8,12 +9,10 @@ int check_epsilon_validity(char* eps) {
     for (int i = 0; i < strlen(eps); i++) {
         if (strchr(double_symbols, eps[i]) == 0) {
             flag = 0;
-            break;
+            return 0;
         }
     }
-    if (flag == 0) {
-        return 0;
-    }
+
     if (atof(eps) < 0) {
         return 0;
     }
@@ -74,15 +73,12 @@ void quadratic_equation(double eps, double a, double b, double c, double* solve)
     }
 }
 
-void bubble_sort(double *num, int size) {
-  for (int i = 0; i < size - 1; i++)
-  {
+void bubble_sort(double *arr, int size) {
+  for (int i = 0; i < size - 1; i++) {
     for (int j = (size - 1); j > i; j--) {
-      if (num[j - 1] > num[j]) {
-        double temp = num[j - 1];
-        num[j - 1] = num[j];
-        num[j] = temp;
-      }
+        if (arr[j - 1] > arr[j]) {
+            swap(arr, j-1, j);
+        }
     }
   }
 }
@@ -107,7 +103,7 @@ int is_triangle(double* arr) {
     for (int i = 0; i < 3; i++) {
         for (int j = i + 1; j < 3; j++) {
             for (int k = j + 1; k < 3; k++) {
-                if (arr[i] + arr[j] > arr[k] && arr[j] + arr[k]s > arr[i] && arr[k] + arr[i] > arr[j]) {
+                if (arr[i] + arr[j] > arr[k] && arr[j] + arr[k] > arr[i] && arr[k] + arr[i] > arr[j]) {
                     count++;
                 }
             }
@@ -129,7 +125,7 @@ int main(int argc, char *argv[]) {
             printf("Too many values\n");
             return 0;
         }
-        if (check_epsilon_validity(argv[1]) == 0) {
+        if (check_epsilon_validity(argv[2]) == 0) {
             printf("Incorrect epsilon value\n");
             return 0;
         };
