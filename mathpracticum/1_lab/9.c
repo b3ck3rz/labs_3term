@@ -47,22 +47,23 @@ void task_1(int a, int b) {
 }
 
 void task_2() {
-    int size = rand()%100+10;
+    int size_A = rand()%100+10;
+    int size_B = rand()%100+10;
     int* A;
     int* B;
     int* C;
-    A = (int*)malloc(size * sizeof(int));
-    B = (int*)malloc(size * sizeof(int));
-    C = (int*)malloc(size * sizeof(int));
-    fill_random(A, size, 1000, 2000);
-    fill_random(B, size, 1000, 2000);
+    A = (int*)malloc(size_A * sizeof(int));
+    B = (int*)malloc(size_B * sizeof(int));
+    C = (int*)malloc(size_A * sizeof(int));
+    fill_random(A, size_A, 1000, 2000);
+    fill_random(B, size_B, 1000, 2000);
     printf ("Array A\n");
-    print(A,size);
+    print(A,size_A);
     printf ("Array B\n");
-    print(B, size);
-    for (int i = 0; i <size; i++) {
+    print(B, size_B);
+    for (int i = 0; i < size_A; i++) {
         int min = A[i] - B[0], diff, pos_B = 0;
-        for (int j = 0; j < size; j++) {
+        for (int j = 0; j < size_B; j++) {
             diff = A[i] - B[j];
             if (abs(diff) <= abs(min)) {
                 min = diff;
@@ -72,7 +73,7 @@ void task_2() {
         C[i] = A[i] + B[pos_B];
     }
     printf("Array C\n");
-    print(C, size);    
+    print(C, size_A);    
 }
 
 int main(int argc, char *argv[]) {
