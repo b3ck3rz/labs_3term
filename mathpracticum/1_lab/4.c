@@ -58,7 +58,7 @@ void another_symbol_count(FILE* file, FILE* new_file) {
             fprintf(new_file, "%d\n", count);
             count = 0;
         }
-        if (is_latin((int)symbol) + is_arabic((int)symbol) + is_space((int)symbol)== 0 && symbol != '\n') {
+        if (is_latin((int)symbol) + is_arabic((int)symbol) + is_space((int)symbol)== 0) {
             count++;
         }
         symbol = fgetc(file);
