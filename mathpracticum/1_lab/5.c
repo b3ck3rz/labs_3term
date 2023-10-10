@@ -3,7 +3,6 @@
 #include <math.h>
 
 int check_epsilon_validity(char* eps) {
-    int flag = 1;
     char* double_symbols = "1234567890.";
     for (int i = 0; i < strlen(eps); i++) {
         if (strchr(double_symbols, eps[i]) == 0) {
