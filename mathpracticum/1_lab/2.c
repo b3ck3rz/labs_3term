@@ -4,7 +4,6 @@
 #include <string.h>
 
 int check_epsilon_validity(char* eps) {
-    int flag = 1;
     char* double_symbols = "1234567890.";
     for (int i = 0; i < strlen(eps); i++) {
         if (strchr(double_symbols, eps[i]) == 0) {
@@ -45,7 +44,7 @@ double mult_primes(int n) {
     double mult_primes = 1.0;
 
     for (int i = 2; i <= n; i++) {
-        if (isprime(i)) mult_primes *= (i - 1.0) / i;
+        if (is_prime(i)) mult_primes *= (i - 1.0) / i;
     }
 
     return mult_primes;
@@ -76,24 +75,24 @@ double dichotomy(double (*func)(double x), double a, double b, double eps) {
     return x;
 }
 
-double function_e(double x) {
+double e_function(double x) {
     return (log(x) - 1);
 }
 
-double function_pi(double x) {
+double pi_function(double x) {
     return (sin(x));
 }
 
-double function_ln2(double x) {
+double ln2_function(double x) {
     return (exp(x) - 2);
 }
 
-double function_sqrt2(double x) {
+double sqrt2_function(double x) {
     return (pow(x, 2) - 2);
 }
 
-double function_gamma(double eps, double x) {
-    return (exp(-x) - limit_for_equation(eps));
+double gamma_function(double x) {
+    return (exp(-x) - limit_for_equation(0.001));
 }
 
 double e_row(double eps) {
@@ -151,6 +150,7 @@ double sqrt2_row(double eps) {
 }
 
 double gamma_row(double eps) {   
+    eps = 0.0000000000001;
     int k = 3;
     double res = 0.0;
     double res_new = 0.5;
@@ -164,7 +164,7 @@ double gamma_row(double eps) {
         k++;
     } while (fabs(res_new - res) > eps);
 
-    return (res_new - pow(PI, 2) / 6.0);
+    return (res_new - pow(3.14, 2) / 6.0);
 }
 
 double e_limit(double eps) {
@@ -172,8 +172,8 @@ double e_limit(double eps) {
     double res = 0.0;
     double res_new = 0.0;
     do {
-        result = result_new;
-        result_new = pow(1.0 + 1.0 / n, n);
+        res = res_new;
+        res_new = pow(1.0 + 1.0 / n, n);
         n++;
     } while (fabs(res_new - res) > eps);
 
@@ -219,15 +219,69 @@ double sqrt2_limit(double eps) {
     return res;
 }
 
+double gamma_limit(double eps) { 
+    int m = 1; 
+    double prev = 0; 
+    double curr = 0; 
 
-int main() {
-    double eps = 0.0001;
-    double e = e_row(eps);
-    double pi = pi_row(eps);
-    double ln2 = ln2_row(eps);
-    double sqrt2 = sqrt2_row(eps);
-    printf("%f\n", e);
-    printf("%f\n", pi);
-    printf("%f\n", ln2);
-    printf("%f\n", sqrt2);
+    do { 
+        m++; 
+        prev = curr; 
+        curr = 0; 
+        double elem = 0; 
+        double comb = m; 
+        double lg = 0; 
+  
+        for (int k = 2; k <= m; k++) { 
+            comb *= (m-k+1.0) / k; 
+            lg += log(k); 
+  
+            elem = comb * lg / k; 
+            if (k & 1) elem *= -1; 
+            curr += elem; 
+        } 
+    } while (fabs(prev - curr) > eps); 
+
+    return curr; 
+ } 
+
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        printf("Not enough values\n");
+        return 0;
+    }
+    if (argc > 2) {
+        printf("Too many values\n");
+        return 0;
+    }
+    if (check_epsilon_validity(argv[1]) == 0) {
+        printf("Incorrect epsilon value\n");
+        return 0;
+    };
+
+    double eps = atof(argv[1]);
+    printf("The result of the calculation E\n");
+    printf("By limit: %f\n", e_limit(eps));
+    printf("By row: %f\n", e_row(eps));
+    printf("By equation: %f\n", dichotomy(e_function, 2.0, 3.0, eps));
+
+    printf("The result of the calculation PI\n");
+    printf("By limit: %f\n", pi_limit(eps));
+    printf("By row: %f\n", pi_row(eps));
+    printf("By equation: %f\n", dichotomy(pi_function, 3.0, 4.0, eps));
+
+    printf("The result of the calculation ln2\n");
+    printf("By limit: %f\n", ln2_limit(eps));
+    printf("By row: %f\n", ln2_row(eps));
+    printf("By equation: %f\n", dichotomy(ln2_function, 0.0, 1.0, eps));
+
+    printf("The result of the calculation sqrt2\n");
+    printf("By limit: %f\n", sqrt2_limit(eps));
+    printf("By row: %f\n", sqrt2_row(eps));
+    printf("By equation: %f\n", dichotomy(sqrt2_function, 1.0, 2.0, eps));
+
+    printf("The result of the calculation gamma\n");
+    printf("By limit: %f\n", gamma_limit(eps));
+    printf("By row: %f\n", gamma_row(eps));
+    printf("By equation: %f\n", dichotomy(gamma_function, 0.0, 1.0, eps));
 }
