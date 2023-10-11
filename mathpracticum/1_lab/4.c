@@ -136,4 +136,6 @@ int main(int argc, char* argv[]) {
         print_ascii(file, new_file);
         return 0;
     }
+    fclose(file);
+    fclose(new_file);
 }
