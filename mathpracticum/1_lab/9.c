@@ -73,7 +73,10 @@ void task_2() {
         C[i] = A[i] + B[pos_B];
     }
     printf("Array C\n");
-    print(C, size_A);    
+    print(C, size_A);   
+    free (A);
+    free (B);
+    free (C);
 }
 
 int main(int argc, char *argv[]) {
