@@ -10,7 +10,7 @@ int check_epsilon_validity(char* eps) {
             return 0;
         }
     }
-    if (atof(eps) < 0) {
+    if (atof(eps) <= 0.0) {
         return 0;
     }
     return 1;

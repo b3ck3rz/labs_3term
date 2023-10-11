@@ -3,14 +3,14 @@
 #include <math.h>
 #include <string.h>
 
-int check_epsilon_validity(char* eps) {
+int check_  (char* eps) {
     char* double_symbols = "1234567890.";
     for (int i = 0; i < strlen(eps); i++) {
         if (strchr(double_symbols, eps[i]) == 0) {
             return 0;
         }
     }
-    if (atof(eps) < 0) {
+    if (atof(eps) <= 0.0) {
         return 0;
     }
     return 1;
